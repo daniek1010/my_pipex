@@ -33,57 +33,7 @@ int	ft_file(char *file, int mode)
 			return (file_fd);
 	}
 	error();
-}
-
-int	ft_execute(char *av[], char *envp[], int x)
-{
-	char	*path;
-	char	**cmd;
-
-	path = ft_access(av[x], envp, x);
-	if (path == NULL)
-	{
-		perror("not found cmd");
-		error();
-	}
-	cmd = ft_split(av[x], ' ');
-	if (execve(path, cmd, envp) == -1)
-	{
-		free(cmd);
-		free(path);
-		error();
-	}
-	return (1);
-}
-
-char	*ft_access(char *av, char *envp[], int x)
-{
-	char	**splitted;
-	char	*str;
-	char	*path;
-	char	**cmd;
-	int		i;
-
-	splitted = check_path(envp);
-	cmd = ft_split(av, ' ');
-	i = -1;
-	while (splitted[++i] != NULL)
-	{
-		str = ft_strjoin(splitted[i], "/");
-		path = ft_strjoin(str, cmd[0]);
-		if (access(path, X_OK) == 0)
-			break ;
-		free(path);
-		free(str);
-	}
-	ft_cleaner(cmd);
-	if (splitted[i] == NULL)
-	{
-		ft_cleaner(splitted);
-		bad_arg(x);
-	}
-	free(str);
-	return (path);
+	return (-1);
 }
 
 char	**check_path(char *envp[])
@@ -105,7 +55,7 @@ char	**check_path(char *envp[])
 	return (splitted);
 }
 
-void	*ft_cleaner(char *str[])
+void	ft_cleaner(char *str[])
 {
 	int		i;
 

@@ -70,11 +70,17 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 void	bad_arg(int x)
 {
 	if (x == 2)
+	{
 		write(2, "cmd1 not found\n", ft_strlen("cmd1 not found\n"));
+		write(2, "FMT > infile.txt cmd1 cmd2 outfile.txt \n", 41);
+		exit(EXIT_FAILURE);
+	}
 	else if (x == 3)
-		write(2, "cmd2 not found\n", ft_strlen("cmd1 not found\n"));
-	write(2, "FMT > infile.txt cmd1 cmd2 outfile.txt \n", 41);
-	exit(EXIT_FAILURE);
+	{
+		write(2, "cmd2 not found\n", ft_strlen("cmd2 not found\n"));
+		write(2, "FMT > infile.txt cmd1 cmd2 outfile.txt \n", 41);
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	error(void)
@@ -82,6 +88,3 @@ void	error(void)
 	perror("Error");
 	exit(EXIT_FAILURE);
 }
-
-//i want to print bad argument[x] noot found
-//enter input as printf("FMT > file1.txt cmd1 cmd2 file2.txt \n");
